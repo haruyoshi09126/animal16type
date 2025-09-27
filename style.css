@@ -194,3 +194,27 @@ details summary {
     max-width: 140px;   /* スマホでは小さくする */
   }
 }
+/* ヘッダー内のサブテキストの行間を狭くする */
+.site-header .tagline,
+.site-header .credit {
+  margin: 4px 0;       /* 上下の余白を小さく */
+  line-height: 1.2;    /* 行の高さを詰める */
+  text-align: center;  /* 念のため中央寄せ */
+  font-size: 1rem;     /* 少し小さめに整える */
+}
+/* ヘッダー内のサブテキストをギュッと詰める */
+.site-header .tagline,
+.site-header .credit {
+  margin: 2px 0;       /* 上下の余白を最小限に */
+  line-height: 1.1;    /* 行間をほぼ詰める */
+  text-align: center;
+  font-size: 1rem;
+}
+/* スタート画面の署名（by はるくんの赤ちゃんねる） */
+#screen-start .credit {
+  text-align: center;     /* 中央寄せ */
+  margin-top: 8px;        /* ボタンとの間に少し余白 */
+  font-size: 0.8rem;      /* 小さめの文字 */
+  color: #777;            /* 薄めのグレーで控えめに */
+  font-style: italic;     /* イタリックでサイン風（お好みで） */
+}
