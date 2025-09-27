@@ -21,7 +21,9 @@ h1,h2,h3,#q-title,#q-text,#screen-result h2 {
 .screen {display:none;}
 .screen.active {display:block;}
 
-#screen-start .btn, .cta-row .btn {
+/* ===== ボタン共通 ===== */
+#screen-start .btn,
+.cta-row .btn {
   display:block;
   margin:20px auto;
   text-align:center;
@@ -46,6 +48,7 @@ h1,h2,h3,#q-title,#q-text,#screen-result h2 {
   border:2px solid #cbd5e1;
 }
 
+/* ===== 選択肢 ===== */
 .choices {
   display:flex;
   flex-direction:column;
@@ -58,6 +61,7 @@ h1,h2,h3,#q-title,#q-text,#screen-result h2 {
 .nav {display:flex;justify-content:center;margin-top:8px;}
 #btn-back {display:inline-block;}
 
+/* ===== プログレスバー ===== */
 .progress {
   height:10px;
   background:#e5e7eb;
@@ -120,6 +124,7 @@ h1,h2,h3,#q-title,#q-text,#screen-result h2 {
   justify-content:center;
   margin-top:12px;
 }
+
 /* ===== details（開閉式セクション） ===== */
 details {
   margin-top: 16px;
@@ -128,17 +133,14 @@ details {
   padding: 8px 12px;
   background: #fff;
 }
-
 details[open] summary {
   font-weight: 600;
   color: #374151;
   margin-bottom: 6px;
 }
-
 details summary {
   cursor: pointer;
-  /* list-style: none; ← この行を削除！ */
-  text-align: left; /* ▶と文字をそろえるため左寄せが自然 */
+  text-align: left; /* ▶と文字をそろえるため左寄せ */
 }
 
 /* ===== 結果ページをカード風に ===== */
@@ -152,11 +154,9 @@ details summary {
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   transition: transform 0.2s;
 }
-
 .result-section:hover {
   transform: translateY(-2px);
 }
-
 .result-section summary,
 .result-section h3 {
   font-weight: 600;
@@ -164,22 +164,19 @@ details summary {
   color: #374151;
   margin-bottom: 8px;
 }
-
 .result-section .chips {
   margin-top: 8px;
 }
 
-/* スタート画面のイラスト */
+/* ===== スタート画面のイラスト ===== */
 .start-illustration {
   display: none; /* 基本は非表示 */
 }
-
 #screen-start .start-illustration {
   display: block;          /* スタート画面だけ表示 */
   text-align: center;
   margin: 8px 0 16px;
 }
-
 #screen-start .start-illustration img {
   max-width: 280px;  /* PC/タブレット用のサイズ */
   width: 100%;
@@ -187,34 +184,52 @@ details summary {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-
 /* スマホ画面用に調整（幅600px以下） */
 @media screen and (max-width: 600px) {
   #screen-start .start-illustration img {
     max-width: 140px;   /* スマホでは小さくする */
   }
 }
-/* ヘッダー内のサブテキストの行間を狭くする */
+
+/* ===== ヘッダーのサブテキスト（2行目と3行目） ===== */
 .site-header .tagline,
 .site-header .credit {
-  margin: 4px 0;       /* 上下の余白を小さく */
-  line-height: 1.2;    /* 行の高さを詰める */
-  text-align: center;  /* 念のため中央寄せ */
-  font-size: 1rem;     /* 少し小さめに整える */
-}
-/* ヘッダー内のサブテキストをギュッと詰める */
-.site-header .tagline,
-.site-header .credit {
-  margin: 2px 0;       /* 上下の余白を最小限に */
-  line-height: 1.1;    /* 行間をほぼ詰める */
+  margin: 2px 0;
+  line-height: 1.1;
   text-align: center;
   font-size: 1rem;
 }
-/* スタート画面の署名（by はるくんの赤ちゃんねる） */
+
+/* ===== スタート画面の署名（by はるくんの赤ちゃんねる） ===== */
 #screen-start .credit {
-  text-align: center;     /* 中央寄せ */
-  margin-top: 8px;        /* ボタンとの間に少し余白 */
-  font-size: 0.8rem;      /* 小さめの文字 */
-  color: #777;            /* 薄めのグレーで控えめに */
-  font-style: italic;     /* イタリックでサイン風（お好みで） */
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #777;
+  font-style: italic;
+}
+
+/* ===== スタート画面の「診断をはじめる」ボタン専用 ===== */
+#btn-start {
+  padding: 26px 40px;
+  font-size: 1.5rem;
+  width: 85%;
+  max-width: 420px;
+  border-radius: 999px;
+
+  background: linear-gradient(90deg, #ff7eb9, #ff65a3, #7afcff, #feff9c);
+  background-size: 300% 300%;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  animation: gradientMove 5s ease infinite;
+}
+
+/* グラデーションアニメーション */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
