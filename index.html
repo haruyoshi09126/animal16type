@@ -10,16 +10,26 @@
 <body>
   <header class="site-header">
     <h1>どうぶつ16タイプ診断 🐾</h1>
-    <p class="tagline">こどもの強みがわかる診断！ママ・パパ向けメッセージあり</p>
+    <p class="tagline">こどもの強みがわかる診断！</p>
+　  <p class="tagline">結果がわかったら、ママとパパに共有してね♪</p>
+
   </header>
->
 
   <main class="container">
+    <!-- ===== スタート画面 ===== -->
     <section id="screen-start" class="screen active">
-      <h2>10のしつもんに「A / B」でこたえてね</h2>
+      <!-- スタート画面だけのイラスト -->
+      <div class="start-illustration">
+        <img src="animals.png" alt="動物たちのイラスト" />
+      </div>
+ 　　<h2>10のしつもんに「A / B」でこたえてね</h2>
       <button class="btn primary big" id="btn-start">診断をはじめる</button>
+ <!-- 署名をボタンの下に -->
+  <p class="credit">by はるくんの赤ちゃんねる</p>
     </section>
 
+
+    <!-- ===== クイズ画面 ===== -->
     <section id="screen-quiz" class="screen">
       <div class="progress"><div id="progress-bar" class="bar"></div></div>
       <h2 id="q-title"></h2>
@@ -33,44 +43,45 @@
       </div>
     </section>
 
+    <!-- ===== 結果画面 ===== -->
     <section id="screen-result" class="screen">
-  <h2>結果</h2>
-  <div class="result-card">
-    <div class="result-hero">
-      <div class="animal-badge" id="animal-emoji">🦁</div>
-      <div>
-        <div class="type-code" id="type-code">ENTJ</div>
-        <div class="animal-name" id="animal-name">ライオン</div>
+      <h2>結果</h2>
+      <div class="result-card">
+        <div class="result-hero">
+          <div class="animal-badge" id="animal-emoji">🦁</div>
+          <div>
+            <div class="type-code" id="type-code">ENTJ</div>
+            <div class="animal-name" id="animal-name">ライオン</div>
+          </div>
+        </div>
+
+        <details open class="result-section">
+          <summary>こども向けメッセージ</summary>
+          <p id="kid-msg"></p>
+        </details>
+
+        <details open class="result-section">
+          <summary>おとな向け解説</summary>
+          <p id="adult-desc"></p>
+        </details>
+
+        <details open class="result-section">
+          <summary>探究テーマのヒント</summary>
+          <ul id="themes" class="chips"></ul>
+        </details>
+
+        <details open class="result-section">
+          <summary>適職・活動アイデア</summary>
+          <ul id="careers" class="chips"></ul>
+        </details>
       </div>
-    </div>
 
-    <details open>
-      <summary>こども向けメッセージ</summary>
-      <p id="kid-msg"></p>
-    </details>
-
-    <details open>
-      <summary>おとな向け解説</summary>
-      <p id="adult-desc"></p>
-    </details>
-
-    <details open>
-      <summary>探究テーマのヒント</summary>
-      <ul id="themes" class="chips"></ul>
-    </details>
-
-    <details open>
-      <summary>適職・活動アイデア</summary>
-      <ul id="careers" class="chips"></ul>
-    </details>
-  </div>
-
-  <div class="cta-row">
-    <button class="btn primary" id="btn-share">結果をシェア</button>
-    <button class="btn ghost" id="btn-retry">もう一度する</button>
-  </div>
-</section>
-
+      <div class="cta-row">
+        <button class="btn primary" id="btn-share">結果をシェア</button>
+        <button class="btn ghost" id="btn-retry">もう一度する</button>
+      </div>
+    </section>
+  </main>
 
   <!-- 重要：JSは一番最後に読み込む -->
   <script src="app.js"></script>
