@@ -4,109 +4,60 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>どうぶつ16タイプ診断 🐾</title>
-  <meta name="description" content="子どもでも答えやすい二択で、MBTI風16タイプをどうぶつキャラで判定。親子で楽しめて、大人も読んで納得の解説つき。">
-  <meta name="theme-color" content="#7dd3fc">
-
-  <!-- SNSプレビュー（必要ならURLを自分の公開URLに差し替え） -->
-  <meta property="og:title" content="どうぶつ16タイプ診断 🐾">
-  <meta property="og:description" content="子どもでも簡単、親子で楽しめる性格診断。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ユーザー名.github.io/リポジトリ名/">
-  <!-- <meta property="og:image" content="https://ユーザー名.github.io/リポジトリ名/og.png"> -->
-
-  <!-- 丸ゴシック -->
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="cute">
+<body> <!-- ← 最初は“cute”を付けないでスタート -->
   <header class="site-header">
     <h1>どうぶつ16タイプ診断 🐾</h1>
     <p class="tagline">こどもも楽しめる！ママやパパも納得の診断</p>
-    <!-- デザイン切替（任意） -->
     <button id="toggle-theme" class="btn ghost small">デザイン切替</button>
   </header>
 
-  <main id="app" class="container" aria-live="polite">
-    <!-- スタート画面 -->
-    <section id="screen-start" class="screen active" role="region" aria-label="診断スタート">
+  <main class="container">
+    <section id="screen-start" class="screen active">
       <h2>10のしつもんに「A / B」でこたえてね</h2>
-      <ul class="bullets">
-        <li>低学年でも答えやすい二択</li>
-        <li>大人向けの解説や探究テーマも表示</li>
-      </ul>
-      <div class="cta-row">
-        <button class="btn primary big" id="btn-start">診断をはじめる</button>
-      </div>
+      <button class="btn primary big" id="btn-start">診断をはじめる</button>
     </section>
 
-    <!-- 質問画面 -->
-    <section id="screen-quiz" class="screen" role="region" aria-label="質問">
-      <div class="progress" aria-hidden="true">
-        <div id="progress-bar" class="bar"></div>
-      </div>
-      <div id="qwrap">
-        <h2 id="q-title">Q1</h2>
-        <p id="q-text" class="qtext">読み込み中...</p>
-        <div class="choices">
-          <button class="btn choice big" id="btnA" data-choice="A">A</button>
-          <button class="btn choice big" id="btnB" data-choice="B">B</button>
-        </div>
+    <section id="screen-quiz" class="screen">
+      <div class="progress"><div id="progress-bar" class="bar"></div></div>
+      <h2 id="q-title"></h2>
+      <p id="q-text" class="qtext"></p>
+      <div class="choices">
+        <button class="btn choice big" id="btnA">A</button>
+        <button class="btn choice big" id="btnB">B</button>
       </div>
       <div class="nav">
-        <button class="btn ghost" id="btn-back" aria-label="前の質問へ">← もどる</button>
+        <button class="btn ghost" id="btn-back">← もどる</button>
       </div>
     </section>
 
-    <!-- 結果画面 -->
-    <section id="screen-result" class="screen" role="region" aria-label="結果">
+    <section id="screen-result" class="screen">
       <h2>結果</h2>
-      <div class="result-card card-pad">
+      <div class="result-card">
         <div class="result-hero">
-          <div class="animal-badge" id="animal-emoji" aria-hidden="true">🦁</div>
+          <div class="animal-badge" id="animal-emoji">🦁</div>
           <div>
             <div class="type-code" id="type-code">ENTJ</div>
-            <div class="animal-name" id="animal-name">ライオン（リーダー）</div>
+            <div class="animal-name" id="animal-name">ライオン</div>
           </div>
         </div>
-
-        <details open>
-          <summary>こどもむけメッセージ</summary>
-          <p id="kid-msg">君はクラスをまとめるリーダー！みんなをえがおにする力があるよ。</p>
-        </details>
-
-        <details>
-          <summary>おとな向け解説（性格・強み）</summary>
-          <div id="adult-desc" class="desc"></div>
-        </details>
-
-        <details>
-          <summary>探究テーマのヒント</summary>
-          <ul id="themes" class="chips"></ul>
-        </details>
-
-        <details>
-          <summary>適職・活動アイデア</summary>
-          <ul id="careers" class="chips"></ul>
-        </details>
+        <p id="kid-msg"></p>
+        <p id="adult-desc"></p>
       </div>
-
       <div class="cta-row">
         <button class="btn primary" id="btn-share">結果をシェア</button>
-        <button class="btn" id="btn-copy">リンクをコピー</button>
         <button class="btn ghost" id="btn-retry">もう一度する</button>
-        <button class="btn ghost" id="btn-print">印刷 / PDF保存</button>
       </div>
-
-      <p class="disclaimer">
-        ※この診断は学び方のヒントを楽しく知るためのツールです。タイプでしばったり、可能性をせばめないでくださいね。
-      </p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <small>© 2025 Animal 16 Types | 教育×探究サポート（非営利利用は CC BY-NC 4.0）</small>
+    <small>© 2025 Animal 16 Types</small>
   </footer>
 
+  <!-- 重要：JSは一番最後に読み込む -->
   <script src="app.js"></script>
 </body>
 </html>
