@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>どうぶつ16タイプ診断（単一ファイル版）</title>
+  <style>
+    body{font-family:system-ui,"Noto Sans JP",sans-serif;background:#0f172a;color:#e5e7eb;margin:0;text-align:center}
+    .container{max-width:720px;margin:auto;padding:16px}
+    .screen{display:none}.screen.active{display:block}
+    .btn{padding:10px 16px;margin:8px;border-radius:10px;cursor:pointer;border:1px solid #334155;color:#fff;background:#1e293b}
+    .btn.primary{background:#2563eb}
+    .choice{display:block;margin:10px auto;width:90%}
+    .progress{height:8px;background:#1f2937;margin:12px 0;border-radius:999px;overflow:hidden}
+    .bar{height:100%;width:0;background:#60a5fa;transition:width .25s}
+    .card{background:#111827;border:1px solid #1f2937;border-radius:14px;padding:16px}
+    .hero{display:flex;gap:12px;align-items:center;justify-content:center;border-bottom:1px dashed #223046;padding-bottom:12px;margin-bottom:12px}
+    .badge{font-size:44px}
+    ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+    ul li{background:#0b203a;border:1px solid #16314e;padding:6px 10px;border-radius:999px}
+  </style>
+</head>
+<body>
+  <header class="container">
+    <h1>どうぶつ16タイプ診断</h1>
+    <p>子ども向けにやさしく。大人も読んで深い。</p>
+  </header>
+
+  <main class="container">
+    <!-- スタート -->
+    <section id="s1" class="screen active">
+      <h2>10のしつもんに「A/B」でこたえてね</h2>
+      <button class="btn primary" id="start">診断をはじめる</button>
+    </section>
+
+    <!-- 質問 -->
+    <section id="s2" class="screen">
+      <div class="progress"><div id="bar" class="bar"></div></div>
+      <h2 id="qt">Q1</h2>
+      <p id="qx">読み込み中...</p>
+      <button class="btn choice" id="A">A</button>
+      <button class="btn choice" id="B">B</button>
+      <div><button class="btn" id="back">← もどる</button></div>
+    </section>
+
+    <!-- 結果 -->
+    <section id="s3" class="screen">
+      <h2>結果</h2>
+      <div class="card">
+        <div class="hero">
+          <div class="badge" id="emoji">🐬</div>
+          <div>
+            <div id="code" style="font-weight:700;font-size:1.3rem">ENFP</div>
+            <div id="name" style="opacity:.8">イルカ（わくわく発明家）</div>
+          </div>
+        </div>
+        <p id="kid"></p>
+        <p id="adult" style="opacity:.9"></p>
+        <h3>探究テーマ</h3>
+        <ul id="themes"></ul>
+        <h3>適職</h3>
+        <ul id="careers"></ul>
+      </div>
+      <p><button class="btn primary" id="retry">もう一度する</button></p>
+    </section>
+  </main>
+
+  <script>
+    // 質問：10問（二択）
+    const Q = [
+      {t:"Q1", x:"お休みの日は…", A:"お友だちといっぱい遊びたい！", B:"ひとりで本やおもちゃで遊びたい", key:"EI", Alean:"E", Blean:"I"},
+      {t:"Q2", x:"遊びのとき…",   A:"新しいルールを考えるのが楽しい！", B:"決まったルールを守ると安心する", key:"SN", Alean:"N", Blean:"S"},
+      {t:"Q3", x:"勉強や宿題は…", A:"早く終わらせて自由にしたい",     B:"計画を立てて順番にやりたい",     key:"JP", Alean:"P", Blean:"J"},
+      {t:"Q4", x:"お友だちがけんかしたら…", A:"どっちが正しいかを考える", B:"みんなが仲良くなるように考える", key:"TF", Alean:"T", Blean:"F"},
+      {t:"Q5", x:"好きな遊びは…", A:"空想やごっこ遊び", B:"ブロックやパズルなど手で作る遊び", key:"SN", Alean:"N", Blean:"S"},
+      {t:"Q6", x:"困ったことがあったら…", A:"すぐに誰かに話したい", B:"まず自分で考えてみたい", key:"EI", Alean:"E", Blean:"I"},
+      {t:"Q7", x:"宿題をする時…", A:"その日の気分でやりたい", B:"やる時間を決めて進めたい", key:"JP", Alean:"P", Blean:"J"},
+      {t:"Q8", x:"新しい遊びをするとき…", A:"自分流に工夫してやってみる", B:"やり方をちゃんと聞いてからやる", key:"SN", Alean:"N", Blean:"S"},
+      {t:"Q9", x:"お友だちの発表を聞くとき…", A:"考え方や理由が気になる", B:"気持ちや表情が気になる", key:"TF", Alean:"T", Blean:"F"},
+      {t:"Q10",x:"大きくなったら…", A:"みんなの前で活躍したい！", B:"しずかに考える仕事がいい", key:"EI", Alean:"E", Blean:"I"},
+    ];
+
+    // 16タイプ簡易マップ（必要十分）
+    const T = {
+      ENFP:{emoji:"🐬",name:"イルカ（わくわく発明家）",kid:"やってみたいがたくさん！みんなを笑顔にするよ。",adult:"共感と創造で人を動かす拡散型。",themes:["イベント企画","表現/創作","観光PR"],careers:["クリエイター","PR","コンテンツ企画"]},
+      ENTP:{emoji:"🦊",name:"キツネ（アイデア勝負）",kid:"発明や工夫が大得意！",adult:"発想転換と議論で革新を生む。",themes:["新発明","ディベート","商品企画"],careers:["企画/開発","グロース","起業"]},
+      ENFJ:{emoji:"🕊️",name:"ハト（まとめ上手）",kid:"みんなを応援できるやさしいリーダー！",adult:"合意形成と支援に強い。",themes:["学級づくり","ボランティア","コミュ運営"],careers:["教育/人事","広報","コミュニティ"]},
+      ENTJ:{emoji:"🦁",name:"ライオン（リーダー）",kid:"やることを決めてグイグイ進められる！",adult:"戦略と実行の司令塔。",themes:["学校改善","地域提案","運営"],careers:["経営","PM","コンサル"]},
+      INFP:{emoji:"🐰",name:"ウサギ（ゆめみる表現者）",kid:"えやものがたりが大すき！",adult:"内面価値を表現する。",themes:["絵本/詩","アートPJ","展示"],careers:["ライター","デザイン","文化"]},
+      INFJ:{emoji:"🌙",name:"ユニコーン（思いやりの先見）",kid:"やさしい未来を考えられる！",adult:"価値観に根ざすビジョン提示。",themes:["福祉/相談","共同学習","社会課題"],careers:["カウンセラー","教育/福祉","NPO"]},
+      INTP:{emoji:"🧠",name:"フクロウ（知恵者）",kid:"なぜ？どうして？名探偵！",adult:"理論構築と検証に強い。",themes:["宇宙/数理","仕組み解明","実験設計"],careers:["研究開発","アナリスト","設計"]},
+      INTJ:{emoji:"🦉",name:"フクロウ（戦略家）",kid:"しずかに深く考えるのが得意！",adult:"長期戦略と仕組み化。",themes:["AI/データ","長期計画","設計"],careers:["戦略/企画","データ","プロダクト"]},
+      ESFP:{emoji:"🎉",name:"ラッコ（ムードメーカー）",kid:"みんなを笑顔にできる！",adult:"即興力で魅せる。",themes:["発表会","観光PR","体験づくり"],careers:["MC/タレント","接客","イベント"]},
+      ESTP:{emoji:"🐆",name:"チーター（行動派）",kid:"体を動かすのが大好き！",adult:"現場対応と瞬発力。",themes:["スポーツ科学","工作","eスポーツ"],careers:["セールス","運営","トレーナー"]},
+      ESFJ:{emoji:"🤝",name:"パンダ（やさしい守り手）",kid:"困っている人を見つける名人！",adult:"ケアと調整。",themes:["ボランティア","健康/栄養","地域つながり"],careers:["医療補助","人事","学校支援"]},
+      ESTJ:{emoji:"🛡️",name:"バイソン（実務指揮）",kid:"てきぱきヒーロー！",adult:"実務最適化と管理。",themes:["校内運営","時間割最適化","安全ルール"],careers:["オペレーション","総務","PMO"]},
+      ISFP:{emoji:"🎨",name:"シカ（アート感性）",kid:"色や形をみつける名人！",adult:"静かな表現者。",themes:["写真/デザイン","自然スケッチ","展示"],careers:["デザイナー","映像","造形"]},
+      ISTP:{emoji:"🛠️",name:"カワウソ（クラフト職人）",kid:"手で作るのがとくい！",adult:"道具と仕組みの達人。",themes:["分解/修理","3Dプリント","メイカーズ"],careers:["エンジニア","整備","セキュリティ"]},
+      ISFJ:{emoji:"🧸",name:"コアラ（やさしい見守り）",kid:"そっと手をさしのべられる！",adult:"配慮のサポート。",themes:["ケア/福祉","学習支援","読み聞かせ"],careers:["スクールサポート","医療事務","地域福祉"]},
+      ISTJ:{emoji:"🐘",name:"ゾウ（こつこつ名人）",kid:"まいにち続ける力！",adult:"記録と品質の番人。",themes:["歴史/記録","統計/観察","標本"],careers:["品質管理","会計/法務補助","調査"]}
+    };
+
+    // 画面制御
+    const s1 = document.getElementById('s1');
+    const s2 = document.getElementById('s2');
+    const s3 = document.getElementById('s3');
+    const qt = document.getElementById('qt');
+    const qx = document.getElementById('qx');
+    const A  = document.getElementById('A');
+    const B  = document.getElementById('B');
+    const bar= document.getElementById('bar');
+
+    let i=0, ans=[], tally={E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0};
+
+    function show(el){ [s1,s2,s3].forEach(x=>x.classList.remove('active')); el.classList.add('active'); }
+    function renderQ(){
+      const q = Q[i];
+      qt.textContent = `${q.t}（${i+1}/${Q.length}）`;
+      qx.textContent = q.x;
+      A.textContent = "A： " + q.A;
+      B.textContent = "B： " + q.B;
+      bar.style.width = (i/Q.length*100) + "%";
+    }
+    function choose(c){
+      ans[i]=c;
+      const lean = (c==="A")?Q[i].Alean:Q[i].Blean;
+      tally[lean]++; 
+      if(i<Q.length-1){ i++; renderQ(); }
+      else{ bar.style.width="100%"; showResult(); }
+    }
+    function typeCode(){
+      const EI=(tally.E>=tally.I)?"E":"I";
+      const SN=(tally.S>tally.N)?"S":"N";
+      const TF=(tally.T>=tally.F)?"T":"F";
+      const JP=(tally.J>tally.P)?"J":"P";
+      return EI+SN+TF+JP;
+    }
+    function fillList(ulId, arr){
+      const ul = document.getElementById(ulId);
+      ul.innerHTML = arr.map(x=>`<li>${x}</li>`).join("");
+    }
+    function showResult(){
+      const code = typeCode();
+      const d = T[code] || T.ENFP;
+      document.getElementById('code').textContent = code;
+      document.getElementById('emoji').textContent = d.emoji;
+      document.getElementById('name').textContent = d.name;
+      document.getElementById('kid').textContent = d.kid;
+      document.getElementById('adult').textContent = d.adult;
+      fillList('themes', d.themes);
+      fillList('careers', d.careers);
+      show(s3);
+    }
+
+    // イベント
+    document.getElementById('start').onclick = ()=>{ i=0; ans=[]; tally={E:0,I:0,S:0,N:0,T:0,F:0,J:0,P:0}; show(s2); renderQ(); };
+    document.getElementById('back').onclick  = ()=>{ if(i>0){ i--; renderQ(); } };
+    A.onclick = ()=>choose("A");
+    B.onclick = ()=>choose("B");
+    document.getElementById('retry').onclick = ()=>{ show(s1); };
+  </script>
+</body>
+</html>

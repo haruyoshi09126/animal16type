@@ -1,0 +1,19 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.container { max-width: 700px; margin: auto; padding: 1rem; }
+.screen { display: none; }
+.screen.active { display: block; }
+.btn { padding: 10px 16px; margin: 8px; border-radius: 8px; cursor: pointer; }
+.btn.primary { background: #2563eb; color: #fff; }
+.btn.ghost { background: none; border: 1px solid #555; color: #ccc; }
+.choice { display: block; margin: 12px auto; width: 80%; }
+.progress { height: 8px; background: #1f2937; margin-bottom: 16px; }
+.bar { height: 100%; width: 0; background: #60a5fa; transition: width .3s; }
+.result-card { background: #111827; padding: 1rem; border-radius: 12px; }
+.animal-badge { font-size: 48px; }
