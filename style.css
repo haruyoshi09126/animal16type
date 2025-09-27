@@ -1,19 +1,68 @@
-body {
-  font-family: system-ui, sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
-  margin: 0;
-  padding: 0;
-  text-align: center;
+:root{
+  --bg:#0f172a; --card:#111827; --ink:#1f2937; --ink-light:#374151;
+  --muted:#6b7280; --accent:#7dd3fc; --accent2:#a78bfa; --bd:#e8ecff;
 }
-.container { max-width: 700px; margin: auto; padding: 1rem; }
-.screen { display: none; }
-.screen.active { display: block; }
-.btn { padding: 10px 16px; margin: 8px; border-radius: 8px; cursor: pointer; }
-.btn.primary { background: #2563eb; color: #fff; }
-.btn.ghost { background: none; border: 1px solid #555; color: #ccc; }
-.choice { display: block; margin: 12px auto; width: 80%; }
-.progress { height: 8px; background: #1f2937; margin-bottom: 16px; }
-.bar { height: 100%; width: 0; background: #60a5fa; transition: width .3s; }
-.result-card { background: #111827; padding: 1rem; border-radius: 12px; }
-.animal-badge { font-size: 48px; }
+
+/* ベース（少し大きめフォント＆余白を増量） */
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  background:linear-gradient(180deg,#fdf7ff 0%,#f2fbff 100%);
+  color:var(--ink);
+  font-family:"M PLUS Rounded 1c", system-ui, "Noto Sans JP","Yu Gothic",sans-serif;
+  font-size:18px;                 /* ← 低学年を意識して少し大きめ */
+  line-height:1.75;
+}
+.container{max-width:920px;margin:0 auto;padding:24px} /* ← 余白+ */
+.site-header,.site-footer{text-align:center;padding:18px 12px} /* ← 余白+ */
+h1{font-size:2rem;margin:.4rem 0}                          /* ← 見出しをやや大きく */
+h2{font-size:1.4rem}
+.tagline{color:var(--muted);margin:.3rem 0 .8rem}
+.screen{display:none}
+.screen.active{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:.0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.bullets{line-height:1.9}.bullets li{margin:.25rem 0}
+
+.btn{
+  background:#ffffff;
+  color:#111827;
+  border:2px solid var(--bd);
+  padding:14px 18px;              /* ← 余白+ */
+  border-radius:999px;            /* まんまる */
+  cursor:pointer;
+  transition:.15s;
+  box-shadow:0 4px 0 #c4d3ff;
+}
+.btn.big{padding:16px 20px;font-size:1.05rem}
+.btn.small{padding:8px 12px;font-size:.9rem}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(1px);box-shadow:0 2px 0 #c4d3ff}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border:none}
+.btn.ghost{background:#fff;border:2px solid var(--bd);color:#374151;box-shadow:none}
+
+.choice{width:100%;max-width:640px;margin:10px auto;display:block;text-align:left}
+
+.progress{height:10px;background:#ffe6f0;border-radius:999px;overflow:hidden;margin:10px 0 16px;border:2px solid #ffd4e6}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#ffb6d9,#a5b4fc,#7dd3fc);transition:width .25s}
+
+.card-pad{padding:18px} /* ← 余白+ */
+.result-card{background:#fff;border:2px solid #ffe2ec;border-radius:18px;box-shadow:0 6px 16px rgba(255,105,180,.08),0 2px 6px rgba(17,24,39,.06)}
+.result-hero{display:flex;gap:14px;align-items:center;border-bottom:1px dashed #ffd4e6;padding-bottom:12px;margin-bottom:12px}
+.animal-badge{font-size:46px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.08))}
+.type-code{font-weight:700;font-size:1.3rem}
+.animal-name{color:#6b7280}
+.desc{line-height:1.9}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px;padding-left:0;list-style:none}
+.chips li{background:#fff;border:2px solid var(--bd);padding:10px 12px;border-radius:999px;color:#374151}
+
+.cta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.nav{display:flex;justify-content:space-between;margin-top:6px}
+.qtext{font-size:1.12rem;margin:.6rem 0 1rem}
+.disclaimer{color:#6b7280;margin-top:12px;font-size:.95rem}
+
+@media (max-width:520px){
+  html,body{font-size:17px}
+  .type-code{font-size:1.2rem}
+}
