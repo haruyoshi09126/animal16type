@@ -181,70 +181,7 @@ details summary {
 }
 
 #screen-start .start-illustration img {
-  max-width: 280px;
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-
-/* まず全画面で非表示にして… */
-.start-illustration { display: none; }
-
-/* スタート画面の中だけ表示する */
-#screen-start .start-illustration img {
-  max-width: 280px;
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.1);
-}  /* ← このカッコを忘れず閉じる！ */
-
-/* スタート画面の説明文を中央寄せ */
-#screen-start p {
-  text-align: center;
-}
-/* スタート画面の「診断をはじめる」ボタン専用 */
-#btn-start {
-  padding: 24px 36px;     /* 内側の余白を大きく */
-  font-size: 1.4rem;      /* 文字を大きく */
-  width: 80%;             /* 横幅を広げる */
-  max-width: 400px;       /* 上限を決めてスマホでもバランスよく */
-  border-radius: 999px;   /* 丸みを強調 */
-}
-/* スタート画面の「診断をはじめる」ボタン専用 */
-#btn-start {
-  padding: 26px 40px;           /* 内側の余白をさらに大きく */
-  font-size: 1.5rem;            /* 文字もさらに大きく */
-  width: 85%;                   /* 横幅を広げる */
-  max-width: 420px;             /* 上限を決めてスマホでもバランスよく */
-  border-radius: 999px;         /* 丸みを強調 */
-
-  /* グラデーションを派手に */
-  background: linear-gradient(90deg, #ff7eb9, #ff65a3, #7afcff, #feff9c);
-  background-size: 300% 300%;   /* アニメーション用に広げておく */
-  color: #fff;
-  font-weight: bold;
-  border: none;
-
-  /* 影をつけて浮かせる */
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-
-  /* アニメーション */
-  animation: gradientMove 5s ease infinite;
-}
-
-/* グラデーションが流れるアニメーション */
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* スタート画面のイラスト（PC/タブレット向け） */
-#screen-start .start-illustration img {
-  max-width: 280px;
+  max-width: 280px;  /* PC/タブレット用のサイズ */
   width: 100%;
   height: auto;
   border-radius: 12px;
@@ -254,6 +191,6 @@ details summary {
 /* スマホ画面用に調整（幅600px以下） */
 @media screen and (max-width: 600px) {
   #screen-start .start-illustration img {
-    max-width: 200px;   /* 画像を小さめにする */
+    max-width: 140px;   /* スマホでは小さくする */
   }
 }
