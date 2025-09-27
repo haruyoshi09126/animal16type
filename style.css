@@ -242,3 +242,18 @@ details summary {
   100% { background-position: 0% 50%; }
 }
 
+/* スタート画面のイラスト（PC/タブレット向け） */
+#screen-start .start-illustration img {
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* スマホ画面用に調整（幅600px以下） */
+@media screen and (max-width: 600px) {
+  #screen-start .start-illustration img {
+    max-width: 200px;   /* 画像を小さめにする */
+  }
+}
