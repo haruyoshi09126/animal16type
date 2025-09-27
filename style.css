@@ -191,19 +191,36 @@ details summary {
   }
 }
 
-/* ===== ヘッダーのサブテキスト（2行目と3行目） ===== */
-.site-header .tagline,
-.site-header .credit {
-  margin: 2px 0;
-  line-height: 1.1;
+/* ===== ヘッダーの余白調整 ===== */
+.site-header {
+  padding-top: 40px;     /* 上にしっかりスペース */
+  padding-bottom: 20px;  /* 下に少し余白 */
   text-align: center;
+}
+.site-header .tagline {
+  margin: 2px 0 10px;  /* 行間は詰めつつ下だけ少し余裕 */
+  line-height: 1.2;
   font-size: 1rem;
 }
+/* スマホ画面用に少し狭める */
+@media screen and (max-width: 600px) {
+  .site-header {
+    padding-top: 24px;
+    padding-bottom: 16px;
+  }
+}
 
-/* ===== スタート画面の署名（by はるくんの赤ちゃんねる） ===== */
+/* ===== スタート画面のメッセージ ===== */
+#screen-start .share-msg {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.3;
+}
 #screen-start .credit {
   text-align: center;
-  margin-top: 8px;
+  margin-top: 4px;
   font-size: 0.8rem;
   color: #777;
   font-style: italic;
