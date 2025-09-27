@@ -1,11 +1,3 @@
-// ===== デザイン切替（そのまま使えます） =====
-const tgl = document.getElementById("toggle-theme");
-if (tgl) {
-  tgl.addEventListener("click", () => {
-    document.body.classList.toggle("cute");
-  });
-}
-
 // ===== 子ども向け 10問（MBTI風 16タイプ判定） =====
 const QUESTIONS = [
   { t:"Q1",  text:"お休みの日は…", A:"お友だちといっぱい遊びたい！", B:"ひとりで本やおもちゃで遊びたい", key:"EI", Alean:"E", Blean:"I" },
@@ -136,8 +128,11 @@ const animalNameEl = document.getElementById("animal-name");
 const animalEmojiEl= document.getElementById("animal-emoji");
 const kidMsgEl     = document.getElementById("kid-msg");
 const adultDescEl  = document.getElementById("adult-desc");
+const themesEl  = document.getElementById("themes");
+const careersEl = document.getElementById("careers");
 const btnRetry     = document.getElementById("btn-retry");
 const btnShare     = document.getElementById("btn-share");
+
 
 // ===== 状態 =====
 let i=0, answers=[];
@@ -185,9 +180,21 @@ function showResult(){
   animalEmojiEl.textContent = data.emoji;
   kidMsgEl.textContent = data.kid;
   adultDescEl.textContent = data.adult;
+  fillChips(themesEl,  data.themes);
+  fillChips(careersEl, data.careers);
   history.replaceState({}, "", `#${code}`);
   show(sRes);
 }
+function fillChips(ul, items){
+  if(!ul) return;
+  ul.innerHTML = "";
+  (items || []).forEach(txt=>{
+    const li = document.createElement("li");
+    li.textContent = txt;
+    ul.appendChild(li);
+  });
+}
+
 
 // ===== 共有（環境によりWeb Share / クリップボード） =====
 async function share(){

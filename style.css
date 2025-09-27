@@ -1,36 +1,142 @@
-/* 全部中央寄せ＆ボタンも中央に */
-html,body{margin:0;font-family:"M PLUS Rounded 1c",system-ui,"Noto Sans JP",sans-serif;font-size:18px;line-height:1.7}
-.site-header,.site-footer,h1,h2,h3,#q-title,#q-text,#screen-result h2{text-align:center}
-.container{max-width:900px;margin:0 auto;padding:24px}
-.screen{display:none}
-.screen.active{display:block}
-#screen-start .btn, .cta-row .btn {display:block;margin:20px auto;text-align:center}
-
-.btn{padding:14px 18px;border-radius:999px;border:2px solid #cbd5e1;background:#ffffff;color:#111827;cursor:pointer}
-.btn.big{padding:16px 22px}
-.btn.primary{background:#3b82f6;color:#fff;border:none}
-.btn.ghost{background:#fff;border:2px solid #cbd5e1}
-.choices{display:flex;flex-direction:column;gap:12px;max-width:640px;margin:0 auto}
-.choice{width:100%;text-align:left}
-.nav{display:flex;justify-content:center;margin-top:8px}
-#btn-back{display:inline-block}
-
-.progress{height:10px;background:#e5e7eb;border-radius:999px;margin:12px 0}
-.bar{height:100%;width:0;background:linear-gradient(90deg,#60a5fa,#34d399)}
-
-.result-card{background:#fff;border:2px solid #e5e7eb;border-radius:16px;padding:16px;max-width:760px;margin:0 auto}
-.result-hero{display:flex;align-items:center;gap:12px;justify-content:center}
-.animal-badge{font-size:42px}
-.cta-row{display:flex;gap:10px;justify-content:center;margin-top:12px}
-
-/* ---- デザイン切替（cute が付いた時に大きく変える） ---- */
-body.cute{
-  background: linear-gradient(180deg,#fff5f7,#f2fbff);
+/* ===== 基本レイアウト ===== */
+html,body {
+  margin:0;
+  font-family:"M PLUS Rounded 1c", sans-serif;
+  font-size:18px;
+  line-height:1.7;
+  background: linear-gradient(180deg,#fff5f7,#f2fbff); /* 常に色付き背景 */
 }
-body.cute .btn.primary{
+
+.site-header,.site-footer,
+h1,h2,h3,#q-title,#q-text,#screen-result h2 {
+  text-align:center;
+}
+
+.container {
+  max-width:900px;
+  margin:0 auto;
+  padding:24px;
+}
+
+.screen {display:none;}
+.screen.active {display:block;}
+
+#screen-start .btn, .cta-row .btn {
+  display:block;
+  margin:20px auto;
+  text-align:center;
+}
+
+.btn {
+  padding:14px 18px;
+  border-radius:999px;
+  border:2px solid #cbd5e1;
+  background:#ffffff;
+  color:#111827;
+  cursor:pointer;
+}
+.btn.big {padding:16px 22px;}
+.btn.primary {
   background: linear-gradient(90deg,#7dd3fc,#a78bfa);
+  color:#fff;
+  border:none;
 }
-body.cute .result-card{
-  border-color:#ffe2ec;
+.btn.ghost {
+  background:#fff;
+  border:2px solid #cbd5e1;
+}
+
+.choices {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  max-width:640px;
+  margin:0 auto;
+}
+.choice {width:100%;text-align:left;}
+
+.nav {display:flex;justify-content:center;margin-top:8px;}
+#btn-back {display:inline-block;}
+
+.progress {
+  height:10px;
+  background:#e5e7eb;
+  border-radius:999px;
+  margin:12px 0;
+}
+.bar {
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#60a5fa,#34d399);
+}
+
+/* ===== 結果カード ===== */
+.result-card {
+  background:#fff;
+  border:2px solid #ffe2ec;
+  border-radius:16px;
+  padding:16px;
+  max-width:760px;
+  margin:0 auto;
   box-shadow:0 6px 16px rgba(255,105,180,.08),0 2px 6px rgba(17,24,39,.06);
+}
+.result-hero {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  justify-content:center;
+}
+.animal-badge {font-size:42px;}
+
+/* ===== 見出し（子ども/大人/テーマ/適職） ===== */
+#screen-result h3 {
+  margin-top: 16px;
+  font-size: 1.1rem;
+  color: #374151;
+  text-align:center;
+}
+
+/* ===== リスト（テーマ・適職） ===== */
+.chips {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  padding-left:0;
+  list-style:none;
+  margin:8px 0 0;
+}
+.chips li {
+  background:#fff;
+  border:2px solid #e8ecff;
+  padding:10px 12px;
+  border-radius:999px;
+  color:#374151;
+}
+
+/* ===== CTAボタン行 ===== */
+.cta-row {
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top:12px;
+}
+/* ===== details（開閉式セクション） ===== */
+details {
+  margin-top: 16px;
+  border: 2px solid #e8ecff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #fff;
+}
+
+details[open] summary {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+details summary {
+  cursor: pointer;
+  /* list-style: none; ← この行を削除！ */
+  text-align: left; /* ▶と文字をそろえるため左寄せが自然 */
 }
